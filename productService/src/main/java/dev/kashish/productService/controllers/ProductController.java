@@ -1,36 +1,47 @@
 package dev.kashish.productService.controllers;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import dev.kashish.productService.dtos.GenericProductDto;
+import dev.kashish.productService.services.ProductService;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController()
-@RequestMapping("/v1/products")
+@RequestMapping("/products")
 public class ProductController {
 
-	@GetMapping
-	public void getAllProducts(){
+    private ProductService productService;
 
-	}
-	@GetMapping("{id}")
-	public String getProductById(@PathVariable("id") Long id){
+    //Autowired used only in cass of field injection
+    // Constructor injection
+    public ProductController(@Qualifier("fakeStoreProductServiceImpl") ProductService productService) {
+        this.productService = productService;
+    }
 
-		return "Here is the product id : " + id;
-	}
-	@DeleteMapping("{id}")
-	public void deleteProductById(){
+    @GetMapping
+    public void getAllProducts() {
 
-	}
-	@PutMapping("{id}")
-	public void updateProductById(){
+    }
 
-	}
-	@PostMapping
-	public void createProduct(){
+    @GetMapping("{id}")
+    public GenericProductDto getProductById(@PathVariable("id") Long id) {
 
-	}
+        return productService.getProductById(id);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteProductById() {
+
+    }
+
+    @PutMapping("{id}")
+    public void updateProductById() {
+
+    }
+
+    @PostMapping
+    public GenericProductDto createProduct(@RequestBody GenericProductDto product) {
+        return productService.createProduct(product);
+    }
 }
