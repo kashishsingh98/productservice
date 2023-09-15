@@ -1,4 +1,4 @@
-package dev.kashish.productService.dtos;
+package dev.kashish.productService.client.fakestore;
 
 import dev.kashish.productService.models.Category;
 import lombok.Getter;
