@@ -1,5 +1,6 @@
 package dev.kashish.productService.services;
 
+import dev.kashish.productService.client.fakestore.FakeStoreProductDto;
 import dev.kashish.productService.dtos.GenericProductDto;
 
 import dev.kashish.productService.exception.NotFoundException;
